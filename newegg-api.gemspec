@@ -12,22 +12,23 @@ Gem::Specification.new do |spec|
   spec.homepage      = %q{http://github.com/chrismagnacca/newegg-api}
 
   spec.files         = %w{
-                        'Gemfile',
-                        'Gemfile.lock',
-                        'LICENCES',
-                        'README.md',
-                        'Rakefile',
-                        'VERSION',
-                        'lib/newegg.rb',
-                        'lib/newegg/api.rb',
-                        'lib/newegg/categories.rb',
-                        'lib/newegg/error.rb',
-                        'lib/newegg/navigation.rb',
-                        'lib/newegg/search.rb',
-                        'lib/newegg/specifications.rb',
-                        'lib/newegg/stores.rb',
-                        'spec/newegg_spec.rb',
-                        'newegg-api.gemspec',
+                        Gemfile
+                        Gemfile.lock
+                        LICENSE
+                        README.md
+                        Rakefile
+                        lib/
+                        lib/newegg.rb
+                        lib/newegg/api.rb
+                        lib/newegg/categories.rb
+                        lib/newegg/error.rb
+                        lib/newegg/navigation.rb
+                        lib/newegg/search.rb
+                        lib/newegg/specifications.rb
+                        lib/newegg/stores.rb
+                        lib/newegg/version.rb
+                        spec/newegg_spec.rb
+                        newegg-api.gemspec
                         }
 
   spec.executables   = spec.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

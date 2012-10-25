@@ -11,6 +11,5 @@ require "newegg/navigation"
 require "newegg/specifications"
 
 module Newegg
-
-
+  
 end

@@ -1,7 +1,7 @@
 require "rspec"
 require "fakeweb"
 require "net/http"
-require "../lib/newegg"
+require File.expand_path(File.dirname(__FILE__) + "/../lib/newegg")
 
 describe Newegg::Api do
   before(:each) do
