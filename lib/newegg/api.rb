@@ -1,8 +1,20 @@
 module Newegg
   class Api
-    BASE_URI = "www.ows.newegg.com"
 
-    protected
+    attr_accessor :conn
+
+    #
+    # retrieve an active connection or establish a new connection
+    #
+    # @ returns [Faraday::Connection] conn to the web service
+    #
+    def connection
+      self.conn ||= Faraday.new(:url => 'http://www.ows.newegg.com') do |faraday|
+        faraday.request :url_encoded            # form-encode POST params
+        faraday.response :logger                # log requests to STDOUT
+        faraday.adapter Faraday.default_adapter # make requests with Net::HTTP
+      end      
+    end
 
     #
     # GET: {controller}/{action}/{id}/
@@ -15,14 +27,21 @@ module Newegg
       uri = String.new
 
       if action && id
-        uri = "http://#{BASE_URI}/#{controller}/#{action}/#{id}"
+        uri = "/#{controller}/#{action}/#{id}"
       else
-        uri = "http://#{BASE_URI}/#{controller}/"
+        uri = "/#{controller}/"
       end
 
-      response = HTTParty.get(uri)
-      raise(Newegg::NeweggServerError, "error, #{response.code}: #{response.inspect}") if(response.code > 401)
-      response
+      response = self.connection.get(uri)
+      
+      case code = response.status.to_i
+      when 400..499
+        raise(Newegg::NeweggClientError, "error, #{code}: #{response.inspect}")
+      when 500..599
+        raise(Newegg::NeweggServerError, "error, #{code}: #{response.inspect}")
+      else
+        response
+      end
     end
 
     #
@@ -33,16 +52,22 @@ module Newegg
     # @param [Hash] opts
     #
     def api_post(controller, action, opts={})
-      uri = "http://#{BASE_URI}/#{controller}/#{action}/"
-      response = HTTParty.post(uri,
-                               :headers => {
-                                  'Content-Type'         => 'application/json',
-                                  'Accept'               => 'application/json',
-                                  'Api-Version'          => '2.2'
-                               },
-                               :body => opts.to_json)
-      raise(Newegg::NeweggServerError, "error, #{response.code}: #{response.inspect}") if(response.code > 401)
-      response
+      response = self.connection.post do |request|
+        request.url "/#{controller}/#{action}/"
+        request.headers['Content-Type'] = 'application/json'
+        request.headers['Accept']       = 'application/json'
+        request.headers['Api-Version']  = '2.2'
+        request.body = opts.to_json
+      end
+
+      case code = response.status.to_i
+      when 400..499
+        raise(Newegg::NeweggClientError, "error, #{code}: #{response.inspect}")
+      when 500..599
+        raise(Newegg::NeweggServerError, "error, #{code}: #{response.inspect}")
+      else
+        response
+      end
     end
 
   end

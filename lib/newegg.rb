@@ -1,9 +1,9 @@
 require "json"
-require "httparty"
+require "faraday"
 
 require "newegg/api"
 require "newegg/error"
-require "newegg/stores"
+require "newegg/store"
 require "newegg/search"
 require "newegg/version"
 require "newegg/categories"
