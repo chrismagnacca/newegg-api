@@ -13,7 +13,7 @@ module Newegg
     #   Newegg::Specifications.retrieve(item_number)
     #
     def retrieve(item_number)
-      api_get("Products.egg", item_number, "Specification")
+      # api_get("Products.egg", item_number, "Specification")
     end
 
   end

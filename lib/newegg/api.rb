@@ -5,6 +5,7 @@ module Newegg
 
     def initialize
       self._stores = []
+      self._categories = []
     end
 
     #
@@ -38,7 +39,7 @@ module Newegg
     #
     def categories(store_id)
       store_index = self._stores.index{ |store| store.store_id == store_id.to_i }
-      return if not self._stores[store_index].categories.empty?
+
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
       categories.each do |category|
