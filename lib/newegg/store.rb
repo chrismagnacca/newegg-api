@@ -1,18 +1,13 @@
 module Newegg
   class Store < Api
-    attr_accessor :title, :store_department, :store_id, :show_see_all_deals
+    attr_accessor :title, :store_department, :store_id, :show_see_all_deals, :categories
     
-
-    #
-    # retrieve a list of available stores from newegg
-    #
-    # @returns [Net::HTTPResponse]
-    #
-    # @example
-    #   Newegg::Store.retrieve
-    #
-    def retrieve
-      api_get("Stores.egg")
+    def initialize(title, store_department, store_id, show_see_all_deals)
+      self.title = title
+      self.store_department = store_department
+      self.store_id = store_id
+      self.show_see_all_deals = show_see_all_deals
+      self.categories = []
     end
 
   end

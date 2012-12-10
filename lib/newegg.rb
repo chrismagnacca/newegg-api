@@ -6,7 +6,7 @@ require "newegg/error"
 require "newegg/store"
 require "newegg/search"
 require "newegg/version"
-require "newegg/categories"
+require "newegg/category"
 require "newegg/navigation"
 require "newegg/specifications"
 

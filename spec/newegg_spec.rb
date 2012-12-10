@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-
 describe Newegg::Api do
   before(:each) do
     FakeWeb.clean_registry
   end
+
 
   it %q{throws an error when response is 404} do
     FakeWeb.register_uri(:get, %r{http://www.ows.newegg.com/Stores.egg/}, :status => ["404","Not Found"])
@@ -15,17 +15,6 @@ describe Newegg::Api do
   end
 
 end #end Newegg::Api
-
-describe Newegg::Store do
-  before(:each) do
-    FakeWeb.clean_registry
-  end
-
-  it %q{returns success for retrieve} do
-    stores = Newegg::Store.new
-    stores.send(:retrieve).status.to_i.should == 200
-  end
-end #end Newegg::Stores
 
 describe Newegg::Categories do
   before(:each) do

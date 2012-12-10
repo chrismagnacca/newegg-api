@@ -1,7 +1,11 @@
 module Newegg
   class Api
 
-    attr_accessor :conn
+    attr_accessor :conn, :_stores, :_categories
+
+    def initialize
+      self._stores = []
+    end
 
     #
     # retrieve an active connection or establish a new connection
@@ -15,7 +19,38 @@ module Newegg
         faraday.adapter Faraday.default_adapter # make requests with Net::HTTP
       end      
     end
-
+    
+    #
+    # retrieve and populate a list of available stores
+    #
+    def stores
+      return self._stores if not self._stores.empty?
+      response = api_get("Stores.egg")
+      stores = JSON.parse(response.body)
+      stores.each do |store|
+        self._stores <<  Newegg::Store.new(store['Title'], store['StoreDepa'], store['StoreID'], store['ShowSeeAllDeals'])
+      end
+      self._stores
+    end
+    
+    #
+    # retrieve and populate list of categories given a store_id
+    #
+    def categories(store_id)
+      store_index = self._stores.index{ |store| store.store_id == store_id.to_i }
+      return if not self._stores[store_index].categories.empty?
+      response = api_get("Stores.egg", "Categories", store_id)
+      categories = JSON.parse(response.body)
+      categories.each do |category|
+        self._categories << Newegg::Category.new(category['Description'], category['CategoryType'], category['CategoryID'],
+                                                 category['StoreID'], category['ShowSeeAllDeals'], category['NodeId'])
+      end
+      
+      self._stores[store_index].categories = self._categories
+    end  
+    
+    private
+    
     #
     # GET: {controller}/{action}/{id}/
     #
@@ -69,6 +104,6 @@ module Newegg
         response
       end
     end
-
+    
   end
 end

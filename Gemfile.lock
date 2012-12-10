@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    newegg-api (0.0.6)
+    newegg-api (0.0.7)
       faraday (~> 0.8)
       json (~> 1.7)
 
