@@ -34,7 +34,7 @@ module Newegg
     end
     
     #
-    # retrieve and populate list of categories given a store_id
+    # retrieve and populate list of categories for a given store_id
     #
     def categories(store_id)
       store_index = self._stores.index{ |store| store.store_id == store_id.to_i }

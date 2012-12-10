@@ -16,18 +16,6 @@ describe Newegg::Api do
 
 end #end Newegg::Api
 
-describe Newegg::Categories do
-  before(:each) do
-    FakeWeb.clean_registry
-  end
-
-  it %q{returns success for retrieve(store_id)} do
-    response = {"Title"=> "Computer Hardware","StoreDepa" => "ComputerHardware","StoreID" => 1,"ShowSeeAllDeals" => true}
-    categories = Newegg::Categories.new
-    categories.send(:retrieve, response["StoreID"]).status.to_i.should == 200
-  end
-end #end Newegg::Categories
-
 describe Newegg::Navigation do
   before(:each) do
     FakeWeb.clean_registry
