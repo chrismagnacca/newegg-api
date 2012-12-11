@@ -39,7 +39,7 @@ module Newegg
     #
     def categories(store_id)
       store_index = self._stores.index{ |store| store.store_id == store_id.to_i }
-
+      raise Newegg::ApiError if store_index.nil?
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
       categories.each do |category|

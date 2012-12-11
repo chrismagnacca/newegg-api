@@ -20,6 +20,12 @@ describe Newegg::Api do
     }.should raise_error Newegg::NeweggServerError
   end
 
+  it %q{throws an error when response is 404} do
+    lambda {
+      @api.categories(1)
+    }.should raise_error Newegg::ApiError
+  end
+
   it %q{should return an array of Newegg::Store for Newegg::Api.stores} do
     @api.stores.each do |store|
       store.class.should eq(Newegg::Store)
