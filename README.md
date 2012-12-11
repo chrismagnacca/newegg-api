@@ -1,4 +1,4 @@
-# Newegg Api
+# Newegg Api Gem
 
 A Ruby Wrapper for the Newegg Mobile API
 
@@ -17,7 +17,7 @@ And then execute:
 
 #### Initialize an instance of the Api
 ```ruby
-api = Newegg::Api.new
+api = Newegg::Api.new 
 ```
 #### Obtain Store Information
 ```ruby
