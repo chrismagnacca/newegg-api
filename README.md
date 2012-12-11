@@ -16,29 +16,29 @@ And then execute:
 
 
 #### Initialize an instance of the Api
-'''ruby
+```ruby
 api = Newegg::Api.new
-'''
+```
 #### Obtain Store Information
-'''ruby
+```ruby
 api.stores #=> Array<Newegg::Store>
-'''
+```
 
 #### Obtain Categories for a Store
-'''ruby
+```ruby
 api.stores[index].categories #=> Array<Newegg::Category>
-'''
+```
 
 #### Navigate through Categories
-'''ruby
+```ruby
 api.navigation(store_id, category_id, node_id) #=> Array<Newegg::Category>
-'''
+```
 
 #### Search for Products
-'''ruby
+```ruby
 api.search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED") #=> Array
-'''
-'''json
+```
+```json
 		{
             "NavigationContentList" => [
                 {"TitleItem" => {"Description" => "Useful Links",  "NavigationItemList" => [{...}]},
@@ -84,13 +84,13 @@ api.search(store_id, category_id, sub_category_id, node_id, page_number, sort = 
                                  "PageNumber" => 1,
                                  "PageCount" => 0}
             }
-'''
+```
 #### Retrieve Product Specifications
-'''ruby
+```ruby
 api.specifications(item_number) #=> Array
-'''
+```
 
-'''json
+```json
 			{"NeweggItemNumber": "N82E16811147107",
               "Title": "Rosewill BLACKHAWK Gaming ATX Mid Tower Computer Case, come with Five Fans, window side panel, top HDD dock ",
               "SpecificationGroupList": [
@@ -107,7 +107,7 @@ api.specifications(item_number) #=> Array
                {"GroupName": "Features", "SpecificationPairList": [{..}]},
                ]
              }
-'''
+```
 ####
 
 ## Contributing
