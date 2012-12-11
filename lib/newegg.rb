@@ -7,7 +7,6 @@ require "newegg/store"
 require "newegg/search"
 require "newegg/version"
 require "newegg/category"
-require "newegg/navigation"
 require "newegg/specifications"
 
 module Newegg
