@@ -37,6 +37,8 @@ module Newegg
     #
     # retrieve and populate list of categories for a given store_id
     #
+    # @param [Integer] store_id of the store
+    #
     def categories(store_id)
       store_index = self._stores.index{ |store| store.store_id == store_id.to_i }
       raise Newegg::ApiError if store_index.nil?
@@ -49,6 +51,18 @@ module Newegg
       
       self._stores[store_index].categories = self._categories
     end  
+    
+    #
+    # retrieves information necessary to search for products, given the store_id, category_id, node_id
+    #
+    # @param [Integer] store_id of the store
+    # @param [Integer] category_id of the store
+    # @param [Integer] node_id of the store
+    #
+    def navigation(store_id, category_id, node_id)
+      response = api_get("Stores.egg", "Navigation", "#{store_id}/#{category_id}/#{node_id}")
+      categories = JSON.parse(response.body)
+    end
     
     private
     
