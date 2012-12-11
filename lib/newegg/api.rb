@@ -64,6 +64,36 @@ module Newegg
       categories = JSON.parse(response.body)
     end
     
+    #
+    # retrieves a single page of products given a specific store_id, category_id, sub_category_id,
+    # node_id, page_number, and an optional sorting method
+    #
+    # @param [Integer] store_id, from @api.navigation, returned as StoreID
+    # @param [Integer] category_id from @api.navigation, returned as CategoryType
+    # @param [Integer] sub_category_id from @api.navigation, returned as CategoryID
+    # @param [Integer] node_id from @api.navigation, returned as NodeId
+    # @param [Integer] page_number of the paginated search results, returned as PaginationInfo from search
+    # @param [optional, String] sort style of the returned search results, default is FEATURED
+    #
+    def search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED")
+      request = {
+          'IsUPCCodeSearch'      => false,
+          'IsSubCategorySearch'  => true,
+          'isGuideAdvanceSearch' => false,
+          'StoreDepaId'          => store_id,
+          'CategoryId'           => category_id,
+          'SubCategoryId'        => sub_category_id,
+          'NodeId'               => node_id,
+          'BrandId'              => -1,
+          'NValue'               => "",
+          'Keyword'              => "",
+          'Sort'                 => sort,
+          'PageNumber'           => page_number
+      }
+
+      api_post("Search.egg", "Advanced", request)
+    end
+    
     private
     
     #
