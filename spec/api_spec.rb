@@ -69,7 +69,6 @@ describe Newegg::Api do
   it %q{throws error for search(store_id, category_id, sub_category_id, node_id} do
     FakeWeb.register_uri(:post, %r{http://www.ows.newegg.com/Search.egg/Advanced}, :status => ["404","Not Found"])
     response = {"Description"=> "Computer Cases", "CategoryType"=> 1, "CategoryID"=> 7, "StoreID"=> 1, "ShowSeeAllDeals"=> false, "NodeId"=> 7583}
-    search = Newegg::Search.new
     lambda {
      @api.search(response["StoreID"], response["CategoryType"], response["CategoryID"], response["NodeId"], 1)
     }.should raise_error Newegg::NeweggClientError
@@ -78,7 +77,6 @@ describe Newegg::Api do
   it %q{throws error for search(store_id, category_id, sub_category_id, node_id} do
     FakeWeb.register_uri(:post, %r{http://www.ows.newegg.com/Search.egg/Advanced}, :status => ["500","Server"])
     response = {"Description"=> "Computer Cases", "CategoryType"=> 1, "CategoryID"=> 7, "StoreID"=> 1, "ShowSeeAllDeals"=> false, "NodeId"=> 7583}
-    search = Newegg::Search.new
     lambda {
       @api.search(response["StoreID"], response["CategoryType"], response["CategoryID"], response["NodeId"], 1)
     }.should raise_error Newegg::NeweggServerError

@@ -94,6 +94,16 @@ module Newegg
       api_post("Search.egg", "Advanced", request)
     end
     
+    #
+    # retrieve product information given an item number
+    #
+    # @param [String] item_number of the product
+    #
+    def specifications(item_number)
+      JSON.parse(api_get("Products.egg", item_number, "Specification").bod)
+    end
+    
+    
     private
     
     #
