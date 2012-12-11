@@ -46,7 +46,7 @@ describe Newegg::Api do
     show_see_all_deals = true
     
     store = Newegg::Store.new(title, store_department, store_id, show_see_all_deals)
-
+    @api.stores # populate the stores for the instance of the api
     categories = @api.categories(store.store_id)
   end
 
