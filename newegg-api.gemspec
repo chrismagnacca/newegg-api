@@ -20,12 +20,9 @@ Gem::Specification.new do |spec|
                         lib/
                         lib/newegg.rb
                         lib/newegg/api.rb
-                        lib/newegg/categories.rb
+                        lib/newegg/category.rb
                         lib/newegg/error.rb
-                        lib/newegg/navigation.rb
-                        lib/newegg/search.rb
-                        lib/newegg/specifications.rb
-                        lib/newegg/stores.rb
+                        lib/newegg/store.rb
                         lib/newegg/version.rb
                         spec/newegg_spec.rb
                         newegg-api.gemspec
