@@ -87,7 +87,7 @@ api.search(store_id, category_id, sub_category_id, node_id, page_number, sort = 
 ```
 #### Retrieve Product Specifications
 ```ruby
-api.specifications(item_number) #=> Array
+api.specifications(item_number) 
 ```
 
 ```json
