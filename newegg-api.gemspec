@@ -24,7 +24,10 @@ Gem::Specification.new do |spec|
                         lib/newegg/error.rb
                         lib/newegg/store.rb
                         lib/newegg/version.rb
-                        spec/newegg_spec.rb
+                        spec/api_spec.rb
+                        spec/category_spec.rb
+                        spec/spec_helper.rb
+                        spec/store_spec.rb
                         newegg-api.gemspec
                         }
 
