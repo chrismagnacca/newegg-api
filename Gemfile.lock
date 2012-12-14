@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    newegg-api (0.0.9)
+    newegg-api (0.0.10)
       faraday (~> 0.8)
       json (~> 1.7)
 
@@ -13,6 +13,7 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     json (1.7.5)
+    log4r (1.1.10)
     multi_json (1.4.0)
     multipart-post (1.1.5)
     rspec (2.12.0)
@@ -34,6 +35,7 @@ PLATFORMS
 
 DEPENDENCIES
   fakeweb (~> 1.3)
+  log4r (~> 1.1.10)
   newegg-api!
   rspec (~> 2.11)
   simplecov

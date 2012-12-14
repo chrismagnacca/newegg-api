@@ -23,10 +23,13 @@ Gem::Specification.new do |spec|
                         lib/newegg/category.rb
                         lib/newegg/error.rb
                         lib/newegg/store.rb
+                        lib/newegg/explorer.rb
+                        lib/newegg/logger.rb
                         lib/newegg/version.rb
                         spec/api_spec.rb
                         spec/category_spec.rb
                         spec/spec_helper.rb
+                        spec/newegg_spec.rb
                         spec/store_spec.rb
                         newegg-api.gemspec
                         }
@@ -40,4 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency(%q<simplecov>)
   spec.add_development_dependency(%q<fakeweb>,['~>1.3'])
   spec.add_development_dependency(%q<rspec>,['~>2.11'])
+  spec.add_development_dependency(%q<log4r>, ['~>1.1.10'])
 end

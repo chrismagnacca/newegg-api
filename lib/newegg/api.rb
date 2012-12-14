@@ -7,7 +7,11 @@ module Newegg
       self._stores = []
       self._categories = []
     end
-
+    
+    def self.required?(cls)
+      p 'REQUIRED'
+    end
+    
     #
     # retrieve an active connection or establish a new connection
     #
@@ -40,8 +44,8 @@ module Newegg
     # @param [Integer] store_id of the store
     #
     def categories(store_id)
-      store_index = self._stores.index{ |store| store.store_id == store_id.to_i }
-      raise Newegg::ApiError if store_index.nil?
+      store_id = store_id.first
+      
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
       categories.each do |category|
@@ -49,7 +53,7 @@ module Newegg
                                                  category['StoreID'], category['ShowSeeAllDeals'], category['NodeId'])
       end
       
-      self._stores[store_index].categories = self._categories
+      self._categories
     end  
     
     #
