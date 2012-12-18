@@ -1,15 +1,11 @@
 module Newegg
   class Api
 
-    attr_accessor :conn, :_stores, :_categories
+    attr_accessor :conn, :_stores, :_categories, :_id
 
     def initialize
       self._stores = []
       self._categories = []
-    end
-    
-    def self.required?(cls)
-      p 'REQUIRED'
     end
     
     #
@@ -45,7 +41,7 @@ module Newegg
     #
     def categories(store_id)
       store_id = store_id.first
-      
+
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
       categories.each do |category|
@@ -63,7 +59,7 @@ module Newegg
     # @param [Integer] category_id of the store
     # @param [Integer] node_id of the store
     #
-    def navigation(store_id, category_id, node_id)
+    def navigate(store_id, category_id, node_id)
       response = api_get("Stores.egg", "Navigation", "#{store_id}/#{category_id}/#{node_id}")
       categories = JSON.parse(response.body)
     end

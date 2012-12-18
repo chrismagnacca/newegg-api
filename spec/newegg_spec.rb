@@ -6,4 +6,5 @@ describe Newegg do
     Newegg.stores.should_not be_nil
   end
 
+
 end #end Newegg

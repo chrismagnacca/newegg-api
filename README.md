@@ -15,28 +15,24 @@ And then execute:
 ## Usage
 
 
-#### Initialize an instance of the Api
-```ruby
-api = Newegg::Api.new 
-```
 #### Obtain Store Information
 ```ruby
-api.stores #=> Array<Newegg::Store>
+Newegg.stores #=> Array<Newegg::Store>
 ```
 
 #### Obtain Categories for a Store
 ```ruby
-api.stores[index].categories #=> Array<Newegg::Category>
+Newegg.stores[index].categories #=> Array<Newegg::Category>
 ```
 
 #### Navigate through Categories
 ```ruby
-api.navigation(store_id, category_id, node_id) #=> Array<Newegg::Category>
+Newegg.navigate(store_id, category_id, node_id) #=> Array<Newegg::Category>
 ```
 
 #### Search for Products
 ```ruby
-api.search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED") #=> json
+Newegg.search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED") #=> json
 ```
 ```json
 {
@@ -87,7 +83,7 @@ api.search(store_id, category_id, sub_category_id, node_id, page_number, sort = 
 ```
 #### Retrieve Product Specifications
 ```ruby
-api.specifications(item_number) 
+Newegg.specifications(item_number) 
 ```
 
 ```json
