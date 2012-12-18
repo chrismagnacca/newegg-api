@@ -22,7 +22,7 @@ Newegg.stores #=> Array<Newegg::Store>
 
 #### Obtain Categories for a Store
 ```ruby
-Newegg.stores[index].categories #=> Array<Newegg::Category>
+Newegg.categories(store_id) #=> Array<Newegg::Category>
 ```
 
 #### Navigate through Categories
