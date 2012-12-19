@@ -4,3 +4,4 @@ coverage
 .bundle
 .yardoc
 .DS_Store
+log/
