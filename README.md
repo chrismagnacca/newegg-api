@@ -20,9 +20,29 @@ And then execute:
 Newegg.stores #=> Array<Newegg::Store>
 ```
 
+```ruby
+Newegg::Store #=> Class Instance Variables
+title,				# store title
+store_department,	# store department name
+store_id,			# store id
+show_see_all_deals,	# boolean if store contains deals
+categories			# array of category ids
+```
+
+
 #### Obtain Categories for a Store
 ```ruby
 Newegg.categories(store_id) #=> Array<Newegg::Category>
+```
+
+```ruby
+Newegg::Category #=> Class Instance Variables 
+description, 		# description of the returned Category 
+category_type,		# category type
+category_id,		# category id
+store_id,			# store id
+show_see_all_deals,	# boolean if category contains deals
+node_id				# node id
 ```
 
 #### Navigate through Categories
