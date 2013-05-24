@@ -8,7 +8,7 @@ module Newegg
     
     def method_missing(method, *args, &block)
       return self.api.send(method) if args.empty?
-      self.api.send(method, args) 
+      self.api.send(method, *args)
     end
     
     def respond_to?(method)

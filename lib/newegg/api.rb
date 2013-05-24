@@ -40,7 +40,7 @@ module Newegg
     # @param [Integer] store_id of the store
     #
     def categories(store_id)
-      store_id = store_id.first
+      store_id = store_id
 
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
@@ -91,7 +91,7 @@ module Newegg
           'PageNumber'           => page_number
       }
 
-      api_post("Search.egg", "Advanced", request)
+      JSON.parse(api_post("Search.egg", "Advanced", request).body)
     end
     
     #
@@ -100,7 +100,7 @@ module Newegg
     # @param [String] item_number of the product
     #
     def specifications(item_number)
-      JSON.parse(api_get("Products.egg", item_number, "Specification").bod)
+      JSON.parse(api_get("Products.egg", item_number, "Specification").body)
     end
     
     
