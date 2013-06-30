@@ -2,6 +2,8 @@
 
 A Ruby Wrapper for the Newegg Mobile API
 
+[![Build Status](https://api.travis-ci.org/chrismagnacca/newegg-api.png)](https://api.travis-ci.org/chrismagnacca/newegg-api.png)
+
 ## Installation
 
 Add this line to your application's Gemfile:
