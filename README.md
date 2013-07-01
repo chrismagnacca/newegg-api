@@ -8,7 +8,7 @@ A Ruby Wrapper for the Newegg Mobile API
 
 Add this line to your application's Gemfile:
 
-    gem 'newegg', :git => 'git://github.com/chrismagnacca/newegg-api.git'
+    gem 'newegg-api', :git => 'git://github.com/chrismagnacca/newegg-api.git'
 
 And then execute:
 
