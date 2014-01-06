@@ -75,7 +75,10 @@ describe Newegg::Api do
             [{"Key" => "Operating System Supported", "Value" => "Windows XP/ Vista/ 7/ 8"}, {"Key" => "System Requirement", "Value" => "1 x USB Port or PS/2 port"}]}, {"GroupName" => "Features", "SpecificationPairList" => [{"Key" => "Features", "Value" =>
             "Highly durable professional gaming keyboard\n\nExtremely responsive and accurate for hours of comfortable gaming\n\nGaming-grade lifetime: 50 million clicks\n\nDurable red metal inner chassis\n\nN-Key rollover: 104 Key could press at the same time, avoid any key jamming (Only PS2 mode, at USB Mode 6-key rollover)\n\nCherry Red Switches: linear feeling with light operating force, 50 million life cycle of the switch, comfortable typing for long term use, fast response on each key.\n\nLaser printing design for the keycap\n\nGold plated USB and PS/2 connector to ensure low latency\n\nHigh quality braided cable\n\nSpec for Cherry MX Red Switch: \nTotal Travel: 4.0-0.4 mm\nKey Stroke: 4.0+/-0.5 mm\nKey pitch: 19.05mm\nOperating Force: 2.0+/-0.5 oz\nLife Cycle: 50 x 10^6 Times"}]}, {"GroupName" => "Packaging", "SpecificationPairList" => [{"Key" => "Package Contents", "Value" => "Keyboard\nUser manual"}]}, {"GroupName" => "Manufacturer Warranty", "SpecificationPairList" => [{"Key" => "Parts", "Value" => "3 years limited"}, {"Key" => "Labor", "Value" => "1 year limited"}]}]}
 
-    @api.specifications("N82E16823201044").should eq(response)
+    specs = @api.specifications("N82E16823201044")
+    expect(specs['SpecificationGroupList'].length).to eq(response['SpecificationGroupList'].length)
+    res_group_names = response['SpecificationGroupList'].collect{|s| s['GroupName']}
+    specs['SpecificationGroupList'].each{|s| expect(res_group_names).to include s['GroupName']}
   end
 
 end #end Newegg::Api
