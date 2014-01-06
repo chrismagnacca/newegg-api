@@ -44,16 +44,16 @@ describe Newegg::Api do
     @api.navigate(response["StoreID"], response["CategoryID"], response["NodeId"]).should_not be_nil
   end
 
-  it %q{returns success for retrieve(store_id, category_id, sub_category_id, node_id)} do
+  it %q{returns success for search(store_id, category_id, sub_category_id, node_id)} do
     response ={"Description" => "Computer Cases", "CategoryType" => 1, "CategoryID" => 7, "StoreID" => 1, "ShowSeeAllDeals" => false, "NodeId" => 7583}
-    @api.search(response["StoreID"], response["CategoryType"], response["CategoryID"], response["NodeId"], 1).should_not be_nil
+    @api.search(store_id: response["StoreID"], category_id: response["CategoryType"], sub_category_id: response["CategoryID"], node_id: response["NodeId"], page_number: 1).should_not be_nil
   end
 
   it %q{throws error for search(store_id, category_id, sub_category_id, node_id} do
     FakeWeb.register_uri(:post, %r{http://www.ows.newegg.com/Search.egg/Advanced}, :status => ["404", "Not Found"])
     response = {"Description" => "Computer Cases", "CategoryType" => 1, "CategoryID" => 7, "StoreID" => 1, "ShowSeeAllDeals" => false, "NodeId" => 7583}
     lambda {
-      @api.search(response["StoreID"], response["CategoryType"], response["CategoryID"], response["NodeId"], 1)
+      @api.search(store_id: response["StoreID"], category_id: response["CategoryType"], sub_category_id: response["CategoryID"], node_id: response["NodeId"], page_number: 1)
     }.should raise_error Newegg::NeweggClientError
   end
 
@@ -61,8 +61,12 @@ describe Newegg::Api do
     FakeWeb.register_uri(:post, %r{http://www.ows.newegg.com/Search.egg/Advanced}, :status => ["500", "Server"])
     response = {"Description" => "Computer Cases", "CategoryType" => 1, "CategoryID" => 7, "StoreID" => 1, "ShowSeeAllDeals" => false, "NodeId" => 7583}
     lambda {
-      @api.search(response["StoreID"], response["CategoryType"], response["CategoryID"], response["NodeId"], 1)
+      @api.search(store_id: response["StoreID"], category_id: response["CategoryType"], sub_category_id: response["CategoryID"], node_id: response["NodeId"], page_number: 1)
     }.should raise_error Newegg::NeweggServerError
+  end
+
+  it %q{returns success for search(keywords)} do
+    expect(@api.search(keywords: "gtx 770")).to_not be_nil
   end
 
   it %q{returns success for specifications} do

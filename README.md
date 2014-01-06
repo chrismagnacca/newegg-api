@@ -54,9 +54,9 @@ node_id				# node id
 Newegg.navigate(store_id, category_id, node_id) #=> Array<Newegg::Category>
 ```
 
-#### Search for Products
+#### Search for Products (all arguments optional)
 ```ruby
-Newegg.search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED") #=> json
+Newegg.search(store_id: STORE_ID, category_id: CAT_ID, sub_category_id: SUB_CAT_ID, node_id: NODE_ID, page_number: 1, sort: "FEATURED", keywords: KEYWORDS) #=> json
 ```
 ```json
 {
