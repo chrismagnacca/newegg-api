@@ -5,7 +5,6 @@ module Newegg
 
     def initialize
       self._stores = []
-      self._categories = []
     end
     
     #
@@ -40,16 +39,16 @@ module Newegg
     # @param [Integer] store_id of the store
     #
     def categories(store_id)
-      store_id = store_id
+      return [] if store_id.nil?
 
       response = api_get("Stores.egg", "Categories", store_id)
       categories = JSON.parse(response.body)
-      categories.each do |category|
-        self._categories << Newegg::Category.new(category['Description'], category['CategoryType'], category['CategoryID'],
-                                                 category['StoreID'], category['ShowSeeAllDeals'], category['NodeId'])
+      categories = categories.collect do |category|
+        Newegg::Category.new(category['Description'], category['CategoryType'], category['CategoryID'],
+                             category['StoreID'], category['ShowSeeAllDeals'], category['NodeId'])
       end
       
-      self._categories
+      categories
     end  
     
     #
