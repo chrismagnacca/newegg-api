@@ -77,21 +77,21 @@ module Newegg
     # @param [String] keywords   
     #
     def search(options={})
-      options = {store_id: nil, category_id: nil, sub_category_id: nil, node_id: nil, page_number: 1, sort: "FEATURED",
+      options = {store_id: -1, category_id: -1, sub_category_id: -1, node_id: -1, page_number: 1, sort: "FEATURED",
                  keywords: ""}.merge(options)
       request = {
           'IsUPCCodeSearch'      => false,
-          'IsSubCategorySearch'  => true,
+          'IsSubCategorySearch'  => options[:sub_category_id] > 0,
           'isGuideAdvanceSearch' => false,
-          'StoreDepaId'          => options['store_id'],
-          'CategoryId'           => options['category_id'],
-          'SubCategoryId'        => options['sub_category_id'],
-          'NodeId'               => options['node_id'],
+          'StoreDepaId'          => options[:store_id],
+          'CategoryId'           => options[:category_id],
+          'SubCategoryId'        => options[:sub_category_id],
+          'NodeId'               => options[:node_id],
           'BrandId'              => -1,
           'NValue'               => "",
-          'Keyword'              => options['keywords'],
-          'Sort'                 => options['sort'],
-          'PageNumber'           => options['page_number']
+          'Keyword'              => options[:keywords],
+          'Sort'                 => options[:sort],
+          'PageNumber'           => options[:page_number]
       }
 
       JSON.parse(api_post("Search.egg", "Advanced", request).body)

@@ -46,7 +46,7 @@ describe Newegg::Api do
 
   it %q{returns success for search(store_id, category_id, sub_category_id, node_id)} do
     response ={"Description" => "Computer Cases", "CategoryType" => 1, "CategoryID" => 7, "StoreID" => 1, "ShowSeeAllDeals" => false, "NodeId" => 7583}
-    @api.search(store_id: response["StoreID"], category_id: response["CategoryType"], sub_category_id: response["CategoryID"], node_id: response["NodeId"], page_number: 1).should_not be_nil
+    @api.search(store_id: response["StoreID"], category_id: response["CategoryType"], sub_category_id: response["CategoryID"], node_id: response["NodeId"], page_number: 1)['PaginationInfo']['TotalCount'].should be > 0
   end
 
   it %q{throws error for search(store_id, category_id, sub_category_id, node_id} do
@@ -66,7 +66,7 @@ describe Newegg::Api do
   end
 
   it %q{returns success for search(keywords)} do
-    expect(@api.search(keywords: "gtx 770")).to_not be_nil
+    expect(@api.search(keywords: "gtx 770")['PaginationInfo']['TotalCount']).to be > 0
   end
 
   it %q{returns success for specifications} do
