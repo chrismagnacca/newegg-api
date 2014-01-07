@@ -69,6 +69,10 @@ describe Newegg::Api do
     expect(@api.search(keywords: "gtx 770")['PaginationInfo']['TotalCount']).to be > 0
   end
 
+  it %q{returns nil for a NULL search result} do
+    expect(@api.search()).to be_nil
+  end
+
   it %q{returns success for specifications} do
     response = {"NeweggItemNumber" => "N82E16823201044", "Title" => "Rosewill Mechanical Keyboard RK-9000RE with Cherry MX Red Switch", "SpecificationGroupList" =>
             [{"GroupName" => "Model", "SpecificationPairList" => [{"Key" => "Brand", "Value" => "Rosewill"}, {"Key" => "Model", "Value" => "RK-9000RE"}]}, {"GroupName" => "Keyboard Connection Type", "SpecificationPairList" =>

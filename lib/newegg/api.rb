@@ -94,7 +94,7 @@ module Newegg
           'PageNumber'           => options[:page_number]
       }
 
-      JSON.parse(api_post("Search.egg", "Advanced", request).body)
+      JSON.parse(api_post("Search.egg", "Advanced", request).body, {quirks_mode: true})
     end
 
     #
