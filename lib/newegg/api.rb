@@ -65,7 +65,7 @@ module Newegg
     end
     
     #
-    # retrieves a single page of products given a specific store_id, category_id, sub_category_id,
+    # retrieves a single page of products given a query specified by an options hash. See options below.
     # node_id, page_number, and an optional sorting method
     #
     # @param [Integer] store_id, from @api.navigation, returned as StoreID
@@ -73,27 +73,30 @@ module Newegg
     # @param [Integer] sub_category_id from @api.navigation, returned as CategoryID
     # @param [Integer] node_id from @api.navigation, returned as NodeId
     # @param [Integer] page_number of the paginated search results, returned as PaginationInfo from search
-    # @param [optional, String] sort style of the returned search results, default is FEATURED
+    # @param [String] sort style of the returned search results, default is FEATURED
+    # @param [String] keywords   
     #
-    def search(store_id, category_id, sub_category_id, node_id, page_number, sort = "FEATURED")
+    def search(options={})
+      options = {store_id: -1, category_id: -1, sub_category_id: -1, node_id: -1, page_number: 1, sort: "FEATURED",
+                 keywords: ""}.merge(options)
       request = {
           'IsUPCCodeSearch'      => false,
-          'IsSubCategorySearch'  => true,
+          'IsSubCategorySearch'  => options[:sub_category_id] > 0,
           'isGuideAdvanceSearch' => false,
-          'StoreDepaId'          => store_id,
-          'CategoryId'           => category_id,
-          'SubCategoryId'        => sub_category_id,
-          'NodeId'               => node_id,
+          'StoreDepaId'          => options[:store_id],
+          'CategoryId'           => options[:category_id],
+          'SubCategoryId'        => options[:sub_category_id],
+          'NodeId'               => options[:node_id],
           'BrandId'              => -1,
           'NValue'               => "",
-          'Keyword'              => "",
-          'Sort'                 => sort,
-          'PageNumber'           => page_number
+          'Keyword'              => options[:keywords],
+          'Sort'                 => options[:sort],
+          'PageNumber'           => options[:page_number]
       }
 
-      JSON.parse(api_post("Search.egg", "Advanced", request).body)
+      JSON.parse(api_post("Search.egg", "Advanced", request).body, {quirks_mode: true})
     end
-    
+
     #
     # retrieve product information given an item number
     #
