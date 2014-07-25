@@ -6,7 +6,7 @@ module Newegg
     def initialize
       self._stores = []
     end
-    
+
     #
     # retrieve an active connection or establish a new connection
     #
@@ -16,10 +16,11 @@ module Newegg
       self.conn ||= Faraday.new(:url => 'http://www.ows.newegg.com') do |faraday|
         faraday.request :url_encoded            # form-encode POST params
         faraday.response :logger                # log requests to STDOUT
+
         faraday.adapter Faraday.default_adapter # make requests with Net::HTTP
-      end      
+      end
     end
-    
+
     #
     # retrieve and populate a list of available stores
     #
@@ -32,7 +33,7 @@ module Newegg
       end
       self._stores
     end
-    
+
     #
     # retrieve and populate list of categories for a given store_id
     #
@@ -47,10 +48,10 @@ module Newegg
         Newegg::Category.new(category['Description'], category['CategoryType'], category['CategoryID'],
                              category['StoreID'], category['ShowSeeAllDeals'], category['NodeId'])
       end
-      
+
       categories
-    end  
-    
+    end
+
     #
     # retrieves information necessary to search for products, given the store_id, category_id, node_id
     #
@@ -62,7 +63,7 @@ module Newegg
       response = api_get("Stores.egg", "Navigation", "#{store_id}/#{category_id}/#{node_id}")
       categories = JSON.parse(response.body)
     end
-    
+
     #
     # retrieves a single page of products given a query specified by an options hash. See options below.
     # node_id, page_number, and an optional sorting method
@@ -73,7 +74,7 @@ module Newegg
     # @param [Integer] node_id from @api.navigation, returned as NodeId
     # @param [Integer] page_number of the paginated search results, returned as PaginationInfo from search
     # @param [String] sort style of the returned search results, default is FEATURED
-    # @param [String] keywords   
+    # @param [String] keywords
     #
     def search(options={})
       options = {store_id: -1, category_id: -1, sub_category_id: -1, node_id: -1, page_number: 1, sort: "FEATURED",
@@ -104,10 +105,10 @@ module Newegg
     def specifications(item_number)
       JSON.parse(api_get("Products.egg", item_number, "Specification").body)
     end
-    
-    
+
+
     private
-    
+
     #
     # GET: {controller}/{action}/{id}/
     #
@@ -124,8 +125,12 @@ module Newegg
         uri = "/#{controller}/"
       end
 
-      response = self.connection.get(uri)
-      
+      response = self.connection.get(uri) do |request|
+        request.headers['Content-Type'] = 'application/json'
+        request.headers['Accept']       = 'application/json'
+        request.headers['User-Agent']  = 'Newegg iPhone App / 4.1.2'
+      end
+
       case code = response.status.to_i
       when 400..499
         raise(Newegg::NeweggClientError, "error, #{code}: #{response.inspect}")
@@ -148,7 +153,7 @@ module Newegg
         request.url "/#{controller}/#{action}/"
         request.headers['Content-Type'] = 'application/json'
         request.headers['Accept']       = 'application/json'
-        request.headers['Api-Version']  = '2.2'
+        request.headers['User-Agent']  = 'Newegg iPhone App / 4.1.2'
         request.body = opts.to_json
       end
 
@@ -161,6 +166,6 @@ module Newegg
         response
       end
     end
-    
+
   end
 end

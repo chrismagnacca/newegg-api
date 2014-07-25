@@ -7,7 +7,7 @@ describe Newegg::Api do
   end
 
   it %q{throws an error when response is 404} do
-    FakeWeb.register_uri(:get, %r{http://www.ows.newegg.com/Stores.egg/}, :status => ["404", "Not Found"])
+    FakeWeb.register_uri(:get, "http://www.ows.newegg.com/Stores.egg/", :status => ["404", "Not Found"])
     lambda {
       @api.send(:api_get, "Stores.egg")
     }.should raise_error Newegg::NeweggClientError
@@ -31,30 +31,31 @@ describe Newegg::Api do
     context "with a valid store_id" do
       let(:store_id) { 1 }
       it "should return the correct categories" do
-        categories = {'Backup Devices & Media' => 2,
-        'Barebone / Mini Computers' => 3,
-        'CD / DVD / Blu-Ray Burners & Media' => 10,
-        'Computer Accessories' => 1,
-        'Computer Cases' => 9,
-        'CPUs / Processors' => 34,
-        'Fans & PC Cooling' => 11,
-        'Flash Memory & Readers' => 324,
-        'Hard Drives' => 15,
-        'Input Devices' => 29,
-        'Keyboards & Mice' => 234,
-        'Memory' => 17,
-        'Monitors' => 19,
-        'Motherboards' => 20,
-        'Networking' => 281,
-        'Power Protection' => 314,
-        'Power Supplies' => 32,
-        'Printers / Scanners & Supplies' => 33,
-        'Projectors' => 343,
-        'Servers & Workstations' => 271,
-        'Sound Cards' => 36,
-        'Speakers & Headsets' => 37,
-        'SSDs' => 119,
-        'Video Cards & Video Devices' => 38}
+        categories = {
+          'Backup Devices & Media' => 2,
+          'Barebone / Mini Computers' => 3,
+          'CD / DVD / Blu-Ray Burners & Media' => 10,
+          'Computer Accessories' => 1,
+          'Computer Cases' => 9,
+          'CPUs / Processors' => 34,
+          'Fans & PC Cooling' => 11,
+          'Flash Memory & Readers' => 324,
+          'Hard Drives' => 15,
+          'Headsets, Speakers, & Soundcards' => 37,
+          'Input Devices' => 29,
+          'Keyboards & Mice' => 234,
+          'Memory' => 17,
+          'Monitors' => 19,
+          'Motherboards' => 20,
+          'Networking' => 281,
+          'Power Protection' => 314,
+          'Power Supplies' => 32,
+          'Printers / Scanners & Supplies' => 33,
+          'Projectors' => 343,
+          'Servers & Workstations' => 271,
+          'SSDs' => 119,
+          'Video Cards & Video Devices' => 38
+        }
 
         expect(subject.length).to eq(categories.length)
         expect(subject.collect{|c| c.description}).to match_array categories.keys
