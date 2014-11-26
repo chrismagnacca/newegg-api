@@ -10,6 +10,17 @@ module Newegg
       self.show_see_all_deals = show_see_all_deals
       self.node_id = node_id
     end
-    
+
+    def to_h
+      @h ||= {
+          :description   => description,
+          :category_type => category_type,
+          :category_id   => category_id,
+          :store_id      => store_id,
+          :node_id       => node_id
+      }.freeze
+      @h
+    end
+
   end
 end

@@ -10,5 +10,27 @@ module Newegg
       self.categories = []
     end
 
+    def get_categories(newegg = Newegg)
+      self.categories = newegg.categories(self.store_id).freeze if self.categories.empty?
+      self.categories
+    end
+
+    def to_h(newegg = Newegg)
+      unless @h
+        categories_hash = []
+        get_categories(newegg).each do |c|
+          categories_hash << c.to_h
+        end
+        @h = {
+          :title              => title,
+          :store_department   => store_department,
+          :store_id           => store_id,
+          :show_see_all_deals => show_see_all_deals,
+          :categories         => categories_hash
+        }.freeze
+      end
+      @h
+    end
+
   end
 end
