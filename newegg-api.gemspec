@@ -42,7 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency(%q<simplecov>)
   spec.add_development_dependency(%q<fakeweb>,['~>1.3'])
   spec.add_development_dependency(%q<rspec>,['~>2.11'])
-  spec.add_development_dependency(%q<byebug>,['~>3.5'])
   spec.add_development_dependency(%q<rake>, ['~>10.0.4'])
   spec.add_development_dependency(%q<coveralls>, ['~>0.6'])
 end
