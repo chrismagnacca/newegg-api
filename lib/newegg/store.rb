@@ -1,7 +1,7 @@
 module Newegg
   class Store < Api
     attr_accessor :title, :store_department, :store_id, :show_see_all_deals, :categories
-    
+
     def initialize(title, store_department, store_id, show_see_all_deals)
       self.title = title
       self.store_department = store_department
@@ -16,20 +16,19 @@ module Newegg
     end
 
     def to_h(newegg = Newegg)
-      unless @h
+      @h ||= begin
         categories_hash = []
         get_categories(newegg).each do |c|
           categories_hash << c.to_h
-        end
-        @h = {
-          :title              => title,
-          :store_department   => store_department,
-          :store_id           => store_id,
-          :show_see_all_deals => show_see_all_deals,
-          :categories         => categories_hash
-        }.freeze
+          end
+          @h = {
+            :title              => title,
+            :store_department   => store_department,
+            :store_id           => store_id,
+            :show_see_all_deals => show_see_all_deals,
+            :categories         => categories_hash
+            }.freeze
       end
-      @h
     end
 
   end

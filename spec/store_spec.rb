@@ -23,4 +23,9 @@ describe Newegg::Store do
     Newegg.categories(store.store_id).first.to_h.should eq(response)
   end
 
+  it %q{should return Newegg::Categories when .get_categories is called on a Newegg::Store} do
+    categories = Newegg.stores.first.get_categories
+    categories.should_not be_nil
+    categories.count.should eq(23)
+  end
 end #end Newegg::Store
