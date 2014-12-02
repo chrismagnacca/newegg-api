@@ -134,16 +134,14 @@ describe Newegg::Api do
   end
 
   it %q{returns success for specifications} do
-    response = {"NeweggItemNumber" => "N82E16823201044", "Title" => "Rosewill Mechanical Keyboard RK-9000RE with Cherry MX Red Switch", "SpecificationGroupList" =>
-            [{"GroupName" => "Model", "SpecificationPairList" => [{"Key" => "Brand", "Value" => "Rosewill"}, {"Key" => "Model", "Value" => "RK-9000RE"}]}, {"GroupName" => "Keyboard Connection Type", "SpecificationPairList" =>
-            [{"Key" => "Keyboard Interface", "Value" => "USB and PS/2"}]}, {"GroupName" => "Keyboard SPEC", "SpecificationPairList" => [{"Key" => "Design Style", "Value" => "Gaming"}, {"Key" => "Palm Rest", "Value" => "N/A"},
-                                                                                                                                        {"Key" => "Normal Keys", "Value" => "104"}, {"Key" => "Keyboard Color", "Value" => "Black"},
-                                                                                                                                        {"Key" => "Dimensions", "Value" => "17.32\" x 5.43\" x 1.52\""}]}, {"GroupName" => "Type", "SpecificationPairList" =>
-            [{"Key" => "Type", "Value" => "Wired"}]}, {"GroupName" => "Mouse Included", "SpecificationPairList" => [{"Key" => "Mouse Included", "Value" => "No"}]}, {"GroupName" => "OS / System Requirement", "SpecificationPairList" =>
-            [{"Key" => "Operating System Supported", "Value" => "Windows XP/ Vista/ 7/ 8"}, {"Key" => "System Requirement", "Value" => "1 x USB Port or PS/2 port"}]}, {"GroupName" => "Features", "SpecificationPairList" => [{"Key" => "Features", "Value" =>
-            "Highly durable professional gaming keyboard\n\nExtremely responsive and accurate for hours of comfortable gaming\n\nGaming-grade lifetime: 50 million clicks\n\nDurable red metal inner chassis\n\nN-Key rollover: 104 Key could press at the same time, avoid any key jamming (Only PS2 mode, at USB Mode 6-key rollover)\n\nCherry Red Switches: linear feeling with light operating force, 50 million life cycle of the switch, comfortable typing for long term use, fast response on each key.\n\nLaser printing design for the keycap\n\nGold plated USB and PS/2 connector to ensure low latency\n\nHigh quality braided cable\n\nSpec for Cherry MX Red Switch: \nTotal Travel: 4.0-0.4 mm\nKey Stroke: 4.0+/-0.5 mm\nKey pitch: 19.05mm\nOperating Force: 2.0+/-0.5 oz\nLife Cycle: 50 x 10^6 Times"}]}, {"GroupName" => "Packaging", "SpecificationPairList" => [{"Key" => "Package Contents", "Value" => "Keyboard\nUser manual"}]}, {"GroupName" => "Manufacturer Warranty", "SpecificationPairList" => [{"Key" => "Parts", "Value" => "3 years limited"}, {"Key" => "Labor", "Value" => "1 year limited"}]}]}
-
-    specs = @api.specifications("N82E16823201044")
+    response = {"NeweggItemNumber"=>"N82E16823114051",
+                        "Title"=>"RAZER BlackWidow Chroma RZ03-01220200-R3U1 USB Wired Gaming RGB Mechanical Keyboard",
+                        "SpecificationGroupList"=> [{
+                          "GroupName"=>"Model", "SpecificationPairList"=>[{
+                            "Key"=>"Brand", "Value"=>"RAZER"}, {"Key"=>"Name", "Value"=>"BlackWidow Chroma"}, {"Key"=>"Model", "Value"=>"RZ03-01220200-R3U1"}]}, {"GroupName"=>"Spec", "SpecificationPairList"=>[{
+                              "Key"=>"Keyboard Interface", "Value"=>"USB"}, {"Key"=>"Design Style", "Value"=>"Gaming"}, {"Key"=>"Mechanical Keyboard", "Value"=>"Yes"}, {"Key"=>"Type", "Value"=>"Wired"}]
+                              }]}
+    specs = @api.specifications("N82E16823114051")
     expect(specs['SpecificationGroupList'].length).to eq(response['SpecificationGroupList'].length)
     res_group_names = response['SpecificationGroupList'].collect{|s| s['GroupName']}
     specs['SpecificationGroupList'].each{|s| expect(res_group_names).to include s['GroupName']}
