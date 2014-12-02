@@ -3,6 +3,7 @@ require "fakeweb"
 require "net/http"
 require "simplecov"
 require "coveralls"
+require "byebug"
 
 # coveralls.io, code coverage, & statistics
 Coveralls.wear!
