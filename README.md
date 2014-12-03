@@ -15,7 +15,11 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ bundle install
-
+    
+Lastly, require the gem as such:
+```ruby
+require 'newegg'
+```
 ## Usage
 
 
